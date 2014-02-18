@@ -1,0 +1,11 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="fourdigits.seo">
+
+  <adapter
+      provides=".userdata.IEnhancedUserDataSchema"
+      for="Products.CMFCore.interfaces.ISiteRoot"
+      factory=".userdata.EnhancedUserDataPanelAdapter"
+      />
+
+</configure>

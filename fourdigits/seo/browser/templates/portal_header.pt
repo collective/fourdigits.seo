@@ -1,0 +1,5 @@
+<div id="portal-header"
+     itemscope="itemscope"
+     itemtype="http://schema.org/WPHeader">
+    <div tal:replace="structure provider:plone.portalheader" />
+</div>

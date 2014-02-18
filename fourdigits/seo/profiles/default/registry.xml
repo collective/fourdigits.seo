@@ -1,0 +1,6 @@
+<registry>
+  <records interface="fourdigits.seo.browser.settings.ISeoSettings">
+    <value key="googlePlusPublisherPage"></value>
+    <value key="twitterSiteAccount"></value>
+  </records>
+</registry>

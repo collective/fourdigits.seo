@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<componentregistry>
+  <utilities>
+    <utility
+        interface="plone.app.users.userdataschema.IUserDataSchemaProvider"
+        factory="fourdigits.seo.overrides.userdata.UserDataSchemaProvider"
+        />
+  </utilities>
+</componentregistry>

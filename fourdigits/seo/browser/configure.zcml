@@ -1,0 +1,92 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="ketomatic.contenttypes">
+
+  <browser:viewlet
+      name="plone.htmlhead.title"
+      manager="plone.app.layout.viewlets.interfaces.IHtmlHead"
+      class=".viewlets.SeoTitleViewlet"
+      permission="zope2.View"
+      layer="..interfaces.IAddOnInstalled"
+      />
+
+  <browser:viewlet
+      name="plone.htmlhead.dublincore"
+      manager="plone.app.layout.viewlets.interfaces.IHtmlHead"
+      class=".viewlets.SeoDublinCoreViewlet"
+      permission="zope2.View"
+      layer="..interfaces.IAddOnInstalled"
+      />
+
+  <browser:viewlet
+      name="fourdigits.seo.robots"
+      manager="plone.app.layout.viewlets.interfaces.IHtmlHead"
+      class=".viewlets.RobotsViewlet"
+      permission="zope2.View"
+      layer="..interfaces.IAddOnInstalled"
+      />
+
+  <browser:viewlet
+      name="plone.links.author"
+      manager="plone.app.layout.viewlets.interfaces.IHtmlHead"
+      class=".viewlets.SeoAuthorViewlet"
+      permission="zope2.View"
+      layer="..interfaces.IAddOnInstalled"
+      />
+
+  <browser:viewlet
+      name="plone.path_bar"
+      manager="plone.app.layout.viewlets.interfaces.IAboveContent"
+      class="plone.app.layout.viewlets.common.PathBarViewlet"
+      permission="zope2.View"
+      template="templates/path_bar.pt"
+      layer="..interfaces.IAddOnInstalled"
+      />
+
+  <browser:viewlet
+      name="plone.global_sections"
+      manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
+      class="plone.app.layout.viewlets.common.GlobalSectionsViewlet"
+      permission="zope2.View"
+      template="templates/sections.pt"
+      layer="..interfaces.IAddOnInstalled"
+      />
+
+  <browser:viewlet
+      name="plone.header"
+      manager="plone.app.layout.viewlets.interfaces.IPortalTop"
+      template="templates/portal_header.pt"
+      permission="zope2.View"
+      layer="..interfaces.IAddOnInstalled"
+      />
+
+  <browser:page
+      name="seo-controlpanel"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      permission="cmf.ManagePortal"
+      class=".settings.SeoControlPanelView"
+      layer="..interfaces.IAddOnInstalled"
+      />
+
+  <browser:page
+      name="twitter-card-summary"
+      for="*"
+      permission="zope2.View"
+      class=".views.TwitterCardSummary"
+      layer="..interfaces.IAddOnInstalled"
+      />
+
+  <browser:page
+      name="open-graph-type-article"
+      for="*"
+      permission="zope2.View"
+      class=".views.OpenGraphArticle"
+      layer="..interfaces.IAddOnInstalled"
+      />
+
+</configure>

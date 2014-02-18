@@ -1,0 +1,3 @@
+recursive-include fourdigits *
+include *
+global-exclude *.pyc

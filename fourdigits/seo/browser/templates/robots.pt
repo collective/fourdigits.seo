@@ -1,0 +1,4 @@
+<meta name="robots"
+      content=""
+      tal:condition="view/content"
+      tal:attributes="content view/content">
