@@ -3,4 +3,7 @@
  <property name="google_author" type="string"></property>
  <property name="twitter_author" type="string"></property>
  <property name="facebook_id" type="string"></property>
+ <property name="first_name" type="string"></property>
+ <property name="last_name" type="string"></property>
+ <property name="gender" type="string"></property>
 </object>

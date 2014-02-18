@@ -4,6 +4,7 @@ from plone.app.users.userdataschema import IUserDataSchemaProvider
 from zope import schema
 from zope.interface import implements
 from fourdigits.seo import MessageFactory as _
+from zope.schema.vocabulary import SimpleVocabulary
 
 
 class UserDataSchemaProvider(object):
@@ -35,6 +36,30 @@ class IEnhancedUserDataSchema(IUserDataSchema):
         required=False,
         )
 
+    first_name = schema.TextLine(
+        title=_(u'label_first_name', default=u'First name'),
+        description=_(u'help_first_name',
+            default=u"Fill in your first name"),
+        required=False,
+        )
+
+    last_name = schema.TextLine(
+        title=_(u'label_last_name', default=u'Last name'),
+        description=_(u'help_last_name',
+            default=u"Fill in your last name"),
+        required=False,
+        )
+
+    gender = schema.Choice(
+        title=_(u'label_gender', default=u'Gender'),
+        description=_(u'help_gender',
+            default=u"Fill in your gender"),
+        source=SimpleVocabulary([
+            SimpleVocabulary.createTerm('male', 'male', _('Male')),
+            SimpleVocabulary.createTerm('female', 'female', _('Female'))]),
+        required=False,
+        )
+
 
 class EnhancedUserDataPanelAdapter(UserDataPanelAdapter):
 
@@ -55,3 +80,21 @@ class EnhancedUserDataPanelAdapter(UserDataPanelAdapter):
     def set_facebook_id(self, value):
         return self.context.setMemberProperties({'facebook_id': value})
     facebook_id = property(get_facebook_id, set_facebook_id)
+
+    def get_first_name(self):
+        return self.context.getProperty('first_name', '')
+    def set_first_name(self, value):
+        return self.context.setMemberProperties({'first_name': value})
+    first_name = property(get_first_name, set_first_name)
+
+    def get_last_name(self):
+        return self.context.getProperty('last_name', '')
+    def set_last_name(self, value):
+        return self.context.setMemberProperties({'last_name': value})
+    last_name = property(get_last_name, set_last_name)
+
+    def get_gender(self):
+        return self.context.getProperty('gender', '')
+    def set_gender(self, value):
+        return self.context.setMemberProperties({'gender': value})
+    gender = property(get_gender, set_gender)

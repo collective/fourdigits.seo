@@ -5,6 +5,9 @@
    <element value="google_author" />
    <element value="twitter_author" />
    <element value="facebook_id" />
+   <element value="first_name" />
+   <element value="last_name" />
+   <element value="gender" />
   </property>
  </object>
 </object>

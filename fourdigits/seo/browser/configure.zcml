@@ -82,10 +82,26 @@
       />
 
   <browser:page
+      name="twitter-card-photo"
+      for="*"
+      permission="zope2.View"
+      class=".views.TwitterCardPhoto"
+      layer="..interfaces.IAddOnInstalled"
+      />
+
+  <browser:page
       name="open-graph-type-article"
       for="*"
       permission="zope2.View"
       class=".views.OpenGraphArticle"
+      layer="..interfaces.IAddOnInstalled"
+      />
+
+  <browser:page
+      name="open-graph-type-website"
+      for="*"
+      permission="zope2.View"
+      class=".views.OpenGraphWebsite"
       layer="..interfaces.IAddOnInstalled"
       />
 

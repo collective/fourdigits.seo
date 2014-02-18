@@ -1,11 +1,13 @@
-from Products.Five import BrowserView
-from fourdigits.seo.behaviors.seo import ISeoAdapter
 from cgi import escape
-from plone.registry.interfaces import IRegistry
+from fourdigits.seo.behaviors.seo import ISeoAdapter
 from fourdigits.seo.browser.settings import ISeoSettings
+from plone.registry.interfaces import IRegistry
+from zope.component import getMultiAdapter
 from zope.component import getUtility
 from Products.CMFCore.utils import getToolByName
-from zope.component import getMultiAdapter
+from Products.CMFPlone.utils import safe_unicode
+from Products.Five import BrowserView
+
 
 class PropertiesBase(BrowserView):
     def __call__(self):
@@ -23,7 +25,6 @@ class TwitterBase(PropertiesBase):
     def __call__(self):
         super(TwitterBase, self).__call__()
         self.properties.append(('twitter:title', self.title))
-        self.properties.append(('twitter:description', self.description))
 
         if self.seoSettings.twitterSiteAccount:
             self.properties.append(('twitter:site',
@@ -39,7 +40,21 @@ class TwitterCardSummary(TwitterBase):
         super(TwitterCardSummary, self).__call__()
         self.properties.append(('twitter:card', 'summary'))
 
+        self.properties.append(('twitter:description', self.description))
+
         # self.properties.append(('twitter:image', ''))
+
+        return self.properties
+
+
+class TwitterCardPhoto(TwitterBase):
+    def __call__(self):
+        super(TwitterCardSummary, self).__call__()
+        self.properties.append(('twitter:card', 'photo'))
+
+        # self.properties.append(('twitter:image', ''))
+        # self.properties.append(('twitter:image:width', ''))
+        # self.properties.append(('twitter:image:height', ''))
 
         return self.properties
 
@@ -51,6 +66,9 @@ class OpenGraphBase(PropertiesBase):
         self.properties.append(('og:description', self.description))
 
         # self.properties.append(('og:image', ''))
+        # self.properties.append(('og:image:type', 'image/jpeg'))
+        # self.properties.append(('og:image:width', '400'))
+        # self.properties.append(('og:image:height', '300'))
 
         context_state = getMultiAdapter(
             (self.context, self.request), name=u'plone_context_state')
@@ -63,10 +81,61 @@ class OpenGraphBase(PropertiesBase):
             loc = loc.split('-')[0] + '_' + loc.split('-')[1].upper()
         self.properties.append(('og:locale', loc))
 
+        self.portal_state = getMultiAdapter((self.context, self.request),
+                                       name=u'plone_portal_state')
+        portal_title = escape(safe_unicode(self.portal_state
+                                           .navigation_root_title()))
+        self.properties.append(('og:site_name', portal_title))
+
 
 class OpenGraphArticle(OpenGraphBase):
     def __call__(self):
         super(OpenGraphArticle, self).__call__()
         self.properties.append(('og:type', 'article'))
+
+        if self.context.EffectiveDate() != 'None':
+            self.properties.append(('og:article:published_time',
+                                    self.context.effective_date.ISO8601()))
+
+        self.properties.append(('og:article:modified_time',
+                                self.context.modified().ISO8601()))
+
+        if self.context.ExpirationDate() != 'None':
+            self.properties.append(('og:article:expiration_time',
+                                    self.context.expiration_date.ISO8601()))
+
+        if self.member.getProperty('first_name'):
+            self.properties.append(('og:article:author:first_name',
+                                    self.member.getProperty('first_name')))
+
+        if self.member.getProperty('last_name'):
+            self.properties.append(('og:article:author:last_name',
+                                    self.member.getProperty('last_name')))
+
+        if self.member.getProperty('id'):
+            self.properties.append(('og:article:author:username',
+                                    self.member.getProperty('id')))
+
+        if self.member.getProperty('gender'):
+            self.properties.append(('og:article:author:gender',
+                                    self.member.getProperty('gender')))
+
+        navroot = self.portal_state.navigation_root()
+        contentPath = self.context.getPhysicalPath()[
+            len(navroot.getPhysicalPath()):]
+        if contentPath:
+            self.properties.append(('og:article:section',
+                                    navroot[contentPath[0]].Title()))
+
+        for tag in self.context.Subject():
+            self.properties.append(('og:article:tag', escape(tag)))
+
+        return self.properties
+
+
+class OpenGraphWebsite(OpenGraphBase):
+    def __call__(self):
+        super(OpenGraphWebsite, self).__call__()
+        self.properties.append(('og:type', 'website'))
 
         return self.properties
