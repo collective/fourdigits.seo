@@ -1,5 +1,7 @@
 from cgi import escape
 from plone.app.layout.viewlets.common import TitleViewlet
+from plone.app.layout.links.viewlets import render_cachekey
+from plone.memoize.compress import xhtml_compress
 from plone.app.layout.viewlets.common import DublinCoreViewlet
 from plone.app.layout.links.viewlets import AuthorViewlet
 from plone.memoize.view import memoize
@@ -11,6 +13,9 @@ from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
 from fourdigits.seo.browser.settings import ISeoSettings
 from fourdigits.seo.behaviors.seo import ISeoAdapter
+from plone.app.layout.viewlets import ViewletBase
+from Products.CMFCore.Expression import Expression
+from Products.CMFCore.Expression import getExprContext
 
 
 class SeoTitleViewlet(TitleViewlet):
@@ -91,3 +96,23 @@ class SeoAuthorViewlet(AuthorViewlet):
             self.publisher_url = seoSettings.googlePlusPublisherPage
         else:
             self.publisher_url = self.navigation_root_url
+
+
+class FaviconViewlet(ViewletBase):
+
+    _template = ViewPageTemplateFile('templates/favicon.pt')
+
+    def __init__(self, context, request, view, manager=None):
+        super(FaviconViewlet, self).__init__(context, request, view, manager)
+        registry = getUtility(IRegistry)
+        self.seoSettings = registry.forInterface(ISeoSettings)
+ 
+    def render(self):
+        return xhtml_compress(self._template())
+
+    def getValueFor(self, field):
+        value = getattr(self.seoSettings, field)
+        if value:
+            expression = Expression(str(value))
+            expression_context = getExprContext(self.context)
+            return expression(expression_context)

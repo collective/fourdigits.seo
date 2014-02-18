@@ -2,5 +2,11 @@
   <records interface="fourdigits.seo.browser.settings.ISeoSettings">
     <value key="googlePlusPublisherPage"></value>
     <value key="twitterSiteAccount"></value>
+    <value key="favicon">string:${portal_url}/favicon.ico</value>
+    <value key="touch_icon_iphone">string:${portal_url}/touch_icon.png</value>
+    <value key="touch_icon_iphone_retina"></value>
+    <value key="touch_icon_ipad"></value>
+    <value key="touch_icon_ipad_retina"></value>
+    <value key="open_graph_fallback_image"></value>
   </records>
 </registry>

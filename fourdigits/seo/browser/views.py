@@ -7,6 +7,9 @@ from zope.component import getUtility
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.Five import BrowserView
+from plone.app.contenttypes.behaviors.leadimage import ILeadImage
+from Products.CMFCore.Expression import Expression
+from Products.CMFCore.Expression import getExprContext
 
 
 class PropertiesBase(BrowserView):
@@ -19,6 +22,7 @@ class PropertiesBase(BrowserView):
         self.seoSettings = registry.forInterface(ISeoSettings)
         mtool = getToolByName(self.context, 'portal_membership')
         self.member = mtool.getMemberById(self.context.Creator())
+        self.image = getattr(self.context, 'image', None)
 
 
 class TwitterBase(PropertiesBase):
@@ -42,19 +46,26 @@ class TwitterCardSummary(TwitterBase):
 
         self.properties.append(('twitter:description', self.description))
 
-        # self.properties.append(('twitter:image', ''))
+        if self.image:
+            scales = self.context.restrictedTraverse('@@images')
+            thumbnail = scales.scale('image', width=120, height=120,
+                                     direction="down")
+            self.properties.append(('twitter:image', thumbnail.url))
 
         return self.properties
 
 
 class TwitterCardPhoto(TwitterBase):
     def __call__(self):
-        super(TwitterCardSummary, self).__call__()
+        super(TwitterCardPhoto, self).__call__()
         self.properties.append(('twitter:card', 'photo'))
 
-        # self.properties.append(('twitter:image', ''))
-        # self.properties.append(('twitter:image:width', ''))
-        # self.properties.append(('twitter:image:height', ''))
+        if self.image:
+            scales = self.context.restrictedTraverse('@@images')
+            thumbnail = scales.scale('image', width=560, height=750)
+            self.properties.append(('twitter:image', thumbnail.url))
+            self.properties.append(('twitter:image:width', thumbnail.width))
+            self.properties.append(('twitter:image:height', thumbnail.height))
 
         return self.properties
 
@@ -65,10 +76,17 @@ class OpenGraphBase(PropertiesBase):
         self.properties.append(('og:title', self.title))
         self.properties.append(('og:description', self.description))
 
-        # self.properties.append(('og:image', ''))
-        # self.properties.append(('og:image:type', 'image/jpeg'))
-        # self.properties.append(('og:image:width', '400'))
-        # self.properties.append(('og:image:height', '300'))
+        if self.image:
+            self.properties.append(('og:image', self.context.absolute_url()))
+            self.properties.append(('og:image:type', self.image.contentType))
+            self.properties.append(('og:image:width', self.image._width))
+            self.properties.append(('og:image:height', self.image._height))
+        elif self.seoSettings.open_graph_fallback_image:
+            expression = Expression(
+                str(self.seoSettings.open_graph_fallback_image))
+            expression_context = getExprContext(self.context)
+            self.properties.append(('og:image',
+                                    expression(expression_context)))
 
         context_state = getMultiAdapter(
             (self.context, self.request), name=u'plone_context_state')

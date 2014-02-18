@@ -65,6 +65,14 @@
       layer="..interfaces.IAddOnInstalled"
       />
 
+  <browser:viewlet
+      name="plone.links.favicon"
+      manager="plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
+      class=".viewlets.FaviconViewlet"
+      permission="zope2.View"
+      layer="..interfaces.IAddOnInstalled"
+      />
+
   <browser:page
       name="seo-controlpanel"
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
