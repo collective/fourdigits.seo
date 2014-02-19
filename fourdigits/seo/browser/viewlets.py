@@ -16,6 +16,7 @@ from fourdigits.seo.behaviors.seo import ISeoAdapter
 from plone.app.layout.viewlets import ViewletBase
 from Products.CMFCore.Expression import Expression
 from Products.CMFCore.Expression import getExprContext
+from Products.CMFCore.interfaces import IContentish
 
 
 class SeoTitleViewlet(TitleViewlet):
@@ -48,14 +49,19 @@ class SeoDublinCoreViewlet(DublinCoreViewlet):
                 self.metatags.append(('description',
                                       escape(adapted.description)))
 
+        registry = getUtility(IRegistry)
+        seoSettings = registry.forInterface(ISeoSettings)
+
         portal_types = getToolByName(self.context, 'portal_types')
         fti = portal_types.getTypeInfo(self.context.portal_type)
-        if fti.getProperty('twitter_card', False):
+        if fti.getProperty('twitter_card', False) and \
+            seoSettings.exposeTwitterCard:
             properties = self.context.restrictedTraverse(
                 '@@twitter-card-%s' % (fti.getProperty('twitter_card')))()
             self.metatags.extend(properties)
 
-        if fti.getProperty('open_graph_type', False):
+        if fti.getProperty('open_graph_type', False) and \
+            seoSettings.exposeOpenGraph:
             properties = self.context.restrictedTraverse(
                 '@@open-graph-type-%s' % \
                     (fti.getProperty('open_graph_type')))()
@@ -67,11 +73,25 @@ class RobotsViewlet(DublinCoreViewlet):
 
     def update(self):
         values = []
-        obj = aq_base(self.context)
-        for x in ['seo_noindex', 'seo_nofollow', 'seo_nosnippet',
-                  'seo_noarchive']:
-            if getattr(obj, x, False):
-                values.append(x.replace('seo_', ''))
+        published = self.request['PUBLISHED']
+        if IContentish.providedBy(published):
+            obj = aq_base(self.context)
+            for x in ['seo_noindex', 'seo_nofollow', 'seo_nosnippet',
+                      'seo_noarchive']:
+                if getattr(obj, x, False):
+                    values.append(x.replace('seo_', ''))
+        else:
+            registry = getUtility(IRegistry)
+            seoSettings = registry.forInterface(ISeoSettings)
+            if getattr(published, 'id', '') == 'contact-info':
+                if not seoSettings.indexingContactInfo:
+                    values.append('noindex')
+            elif getattr(published, 'id', '') in ['login', 'login_form']:
+                if not seoSettings.indexingLoginForm:
+                    values.append('noindex')
+            elif self.request.steps[-1] in 'register':
+                if not seoSettings.indexingRegisterForm:
+                    values.append('noindex')
         
         self.content = ', '.join(values)
 

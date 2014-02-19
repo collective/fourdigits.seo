@@ -1,12 +1,25 @@
 <registry>
   <records interface="fourdigits.seo.browser.settings.ISeoSettings">
+    <value key="exposeTwitterCard">False</value>
+    <value key="exposeOpenGraph">False</value>
     <value key="googlePlusPublisherPage"></value>
     <value key="twitterSiteAccount"></value>
     <value key="favicon">string:${portal_url}/favicon.ico</value>
-    <value key="touch_icon_iphone">string:${portal_url}/touch_icon.png</value>
-    <value key="touch_icon_iphone_retina"></value>
-    <value key="touch_icon_ipad"></value>
-    <value key="touch_icon_ipad_retina"></value>
-    <value key="open_graph_fallback_image"></value>
+    <value key="touchIconIphone">string:${portal_url}/touch_icon.png</value>
+    <value key="touchIconIphoneRetina"></value>
+    <value key="touchIconIpad"></value>
+    <value key="touchIconIpadRetina"></value>
+    <value key="openGraphFallbackImage"></value>
+    <value key="indexingHomepageTitle"></value>
+    <value key="indexingHomepageDescription"></value>
+    <value key="indexingLoginForm">False</value>
+    <value key="indexingLoginFormTitle"></value>
+    <value key="indexingLoginFormDescription"></value>
+    <value key="indexingRegisterForm">False</value>
+    <value key="indexingRegisterFormTitle"></value>
+    <value key="indexingRegisterFormDescription"></value>
+    <value key="indexingContactInfo">False</value>
+    <value key="indexingContactInfoTitle"></value>
+    <value key="indexingContactInfoDescription"></value>
   </records>
 </registry>

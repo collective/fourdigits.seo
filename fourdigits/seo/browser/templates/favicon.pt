@@ -1,8 +1,8 @@
 <tal:favicon define="favicon python:view.getValueFor('favicon');
-                     touch_icon_iphone python:view.getValueFor('touch_icon_iphone');
-                     touch_icon_iphone_retina python:view.getValueFor('touch_icon_iphone_retina');
-                     touch_icon_ipad python:view.getValueFor('touch_icon_ipad');
-                     touch_icon_ipad_retina python:view.getValueFor('touch_icon_ipad_retina');">
+                     touch_icon_iphone python:view.getValueFor('touchIconIphone');
+                     touch_icon_iphone_retina python:view.getValueFor('touchIconIphoneRetina');
+                     touch_icon_ipad python:view.getValueFor('touchIconIpad');
+                     touch_icon_ipad_retina python:view.getValueFor('touchIconIpadRetina');">
   <link rel="shortcut icon" type="image/x-icon" tal:attributes="href favicon" tal:condition="favicon" />
   <link rel="apple-touch-icon" tal:attributes="href touch_icon_iphone" tal:condition="touch_icon_iphone" />
   <link rel="apple-touch-icon" size="120x120" tal:attributes="href touch_icon_iphone_retina" tal:condition="touch_icon_iphone_retina" />
