@@ -74,11 +74,6 @@ class ISeoIndexingSettings(Interface):
             required=False,
             description=u"Title for the login form")
 
-    indexingLoginFormDescription = schema.TextLine(
-            title=u"Login Form Description",
-            required=False,
-            description=u"Description for the login form")
-
     indexingRegisterForm = schema.Bool(title=u"Register Form",
             required=False,
             description=u"Whether or not to index the register form")
