@@ -57,15 +57,6 @@ class ISeoIconsSettings(Interface):
 
 class ISeoIndexingSettings(Interface):
 
-    indexingHomepageTitle = schema.TextLine(title=u"Homepage Title",
-            required=False,
-            description=u"Title for the homepage")
-
-    indexingHomepageDescription = schema.TextLine(
-            title=u"Homepage Description",
-            required=False,
-            description=u"Description for the homepage")
-
     indexingLoginForm = schema.Bool(title=u"Index Login Form",
             required=False,
             description=u"Whether or not to index the login form")
@@ -74,7 +65,12 @@ class ISeoIndexingSettings(Interface):
             required=False,
             description=u"Title for the login form")
 
-    indexingRegisterForm = schema.Bool(title=u"Register Form",
+    indexingLoginFormDescription = schema.TextLine(
+            title=u"Login Form Description",
+            required=False,
+            description=u"Description for the homepage")
+
+    indexingRegisterForm = schema.Bool(title=u"Index Register Form",
             required=False,
             description=u"Whether or not to index the register form")
 
@@ -87,7 +83,7 @@ class ISeoIndexingSettings(Interface):
             required=False,
             description=u"Description for the registration form")
 
-    indexingContactInfo = schema.Bool(title=u"Contact Info",
+    indexingContactInfo = schema.Bool(title=u"Index Contact Info",
             required=False,
             description=u"Whether or not to index the contact info page")
 

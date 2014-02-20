@@ -27,19 +27,50 @@ class SeoTitleViewlet(TitleViewlet):
         '''
         Override the pagetitle when seo title is specified
         '''
+        registry = getUtility(IRegistry)
+        seoSettings = registry.forInterface(ISeoSettings)
+
+        published = getattr(self.request, 'PUBLISHED', None)
+        obj_id = getattr(published, 'id', '')
+        if not obj_id:
+            obj_id = self.request.steps[-1].replace('@', '')
+
+        if obj_id == 'contact-info':
+            return seoSettings.indexingContactInfoTitle
+        elif obj_id in ['login', 'login_form']:
+            return seoSettings.indexingLoginFormTitle
+        elif obj_id == 'register':
+            return seoSettings.indexingRegisterFormTitle
+
         adapted = ISeoAdapter(self.context, None)
         if adapted:
             return escape(adapted.title)
-        else:
-            return super(SeoTitleViewlet, self).page_title
+
+        return super(SeoTitleViewlet, self).page_title
 
 
 class SeoDublinCoreViewlet(DublinCoreViewlet):
     def update(self):
         super(SeoDublinCoreViewlet, self).update()
 
+        published = getattr(self.request, 'PUBLISHED', None)
         adapted = ISeoAdapter(self.context, None)
-        if adapted:
+        registry = getUtility(IRegistry)
+        seoSettings = registry.forInterface(ISeoSettings)
+        obj_id = getattr(published, 'id', '')
+        if not obj_id:
+            obj_id = self.request.steps[-1].replace('@', '')
+
+        if obj_id == 'contact-info':
+            self.metatags.append(('description',
+                seoSettings.indexingContactInfoDescription))
+        elif obj_id in ['login', 'login_form']:
+            self.metatags.append(('description',
+                seoSettings.indexingLoginFormDescription))
+        elif obj_id == 'register':
+            self.metatags.append(('description',
+                seoSettings.indexingRegisterFormDescription))
+        elif adapted:
             found = False
             for i, v in enumerate(self.metatags):
                 if v[0] == 'description':
@@ -48,9 +79,6 @@ class SeoDublinCoreViewlet(DublinCoreViewlet):
             if not found and adapted.description:
                 self.metatags.append(('description',
                                       escape(adapted.description)))
-
-        registry = getUtility(IRegistry)
-        seoSettings = registry.forInterface(ISeoSettings)
 
         portal_types = getToolByName(self.context, 'portal_types')
         fti = portal_types.getTypeInfo(self.context.portal_type)
@@ -73,8 +101,8 @@ class RobotsViewlet(DublinCoreViewlet):
 
     def update(self):
         values = []
-        published = self.request['PUBLISHED']
-        if IContentish.providedBy(published):
+        published = getattr(self.request, 'PUBLISHED', None)
+        if published and IContentish.providedBy(published):
             obj = aq_base(self.context)
             for x in ['seo_noindex', 'seo_nofollow', 'seo_nosnippet',
                       'seo_noarchive']:
@@ -83,16 +111,24 @@ class RobotsViewlet(DublinCoreViewlet):
         else:
             registry = getUtility(IRegistry)
             seoSettings = registry.forInterface(ISeoSettings)
-            if getattr(published, 'id', '') == 'contact-info':
+            obj_id = getattr(published, 'id', '')
+            if not obj_id:
+                obj_id = self.request.steps[-1].replace('@', '')
+            if obj_id == 'contact-info':
                 if not seoSettings.indexingContactInfo:
                     values.append('noindex')
-            elif getattr(published, 'id', '') in ['login', 'login_form']:
+            elif obj_id in ['login', 'login_form']:
                 if not seoSettings.indexingLoginForm:
                     values.append('noindex')
-            elif self.request.steps[-1] in 'register':
+            elif obj_id == 'register':
                 if not seoSettings.indexingRegisterForm:
                     values.append('noindex')
-        
+            elif obj_id == 'sitemap' or \
+                 obj_id == 'accessibility-info' or \
+                 obj_id == 'search' or \
+                 obj_id == 'mail_password_form':
+                values.append('noindex')
+
         self.content = ', '.join(values)
 
 
@@ -126,7 +162,7 @@ class FaviconViewlet(ViewletBase):
         super(FaviconViewlet, self).__init__(context, request, view, manager)
         registry = getUtility(IRegistry)
         self.seoSettings = registry.forInterface(ISeoSettings)
- 
+
     def render(self):
         return xhtml_compress(self._template())
 

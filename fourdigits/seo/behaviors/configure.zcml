@@ -8,7 +8,7 @@
 
   <plone:behavior
       title="SEO"
-      description="Adds Title, Description and Keyword override fields."
+      description="Adds Title, Description override fields and indexing options."
       provides=".seo.ISeo"
       factory=".seo.Seo"
       for="plone.dexterity.interfaces.IDexterityContent"
