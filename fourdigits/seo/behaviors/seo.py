@@ -34,12 +34,14 @@ class ISeo(form.Schema):
             title=_(u"Title"),
             description=_(u"Override the meta title. When empty the default title will be used"),
             required=False,
+            max_length=70,
         )
 
     seo_description = schema.TextLine(
             title=_(u"Description"),
             description=_(u"Override the meta description. When empty the default description will be used"),
             required=False,
+            max_length=155,
         )
 
     seo_noindex = schema.Bool(

@@ -63,11 +63,13 @@ class ISeoIndexingSettings(Interface):
 
     indexingLoginFormTitle = schema.TextLine(title=u"Login Form Title",
             required=False,
+            max_length=70,
             description=u"Title for the login form")
 
     indexingLoginFormDescription = schema.TextLine(
             title=u"Login Form Description",
             required=False,
+            max_length=155,
             description=u"Description for the homepage")
 
     indexingRegisterForm = schema.Bool(title=u"Index Register Form",
@@ -76,11 +78,13 @@ class ISeoIndexingSettings(Interface):
 
     indexingRegisterFormTitle = schema.TextLine(title=u"Register Form Title",
             required=False,
+            max_length=70,
             description=u"Title for the registration form")
 
     indexingRegisterFormDescription = schema.TextLine(
             title=u"Register Form Description",
             required=False,
+            max_length=155,
             description=u"Description for the registration form")
 
     indexingContactInfo = schema.Bool(title=u"Index Contact Info",
@@ -89,11 +93,13 @@ class ISeoIndexingSettings(Interface):
 
     indexingContactInfoTitle = schema.TextLine(title=u"Contact Info Title",
             required=False,
+            max_length=70,
             description=u"Title for the contact info page")
 
     indexingContactInfoDescription = schema.TextLine(
             title=u"Contact Info Description",
             required=False,
+            max_length=155,
             description=u"Description for the contact info page")
 
 
