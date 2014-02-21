@@ -28,8 +28,6 @@ class SeoTitleViewlet(TitleViewlet):
         '''
         Override the pagetitle when seo title is specified
         '''
-        registry = getUtility(IRegistry)
-        seoSettings = registry.forInterface(ISeoSettings)
 
         published = getattr(self.request, 'PUBLISHED', None)
         obj_id = getattr(published, 'id', '')
@@ -37,11 +35,11 @@ class SeoTitleViewlet(TitleViewlet):
             obj_id = self.request.steps[-1].replace('@', '')
 
         if obj_id == 'contact-info':
-            return seoSettings.indexingContactInfoTitle
+            return self.seoSettings.contactInfoTitle
         elif obj_id in ['login', 'login_form']:
-            return seoSettings.indexingLoginFormTitle
+            return self.seoSettings.loginFormTitle
         elif obj_id == 'register':
-            return seoSettings.indexingRegisterFormTitle
+            return self.seoSettings.registerFormTitle
 
         adapted = ISeoAdapter(self.context, None)
         if adapted:
@@ -54,14 +52,22 @@ class SeoTitleViewlet(TitleViewlet):
                                        name=u'plone_portal_state')
         portal_title = escape(safe_unicode(portal_state
                                            .navigation_root_title()))
+        registry = getUtility(IRegistry)
+        self.seoSettings = registry.forInterface(ISeoSettings)
         if self.page_title == portal_title:
             self.site_title = portal_title
+        elif self.seoSettings.includeSiteNameInTitle:
+            self.site_title = u"%s %s %s" % (
+                self.page_title,
+                self.seoSettings.siteNameSeparator,
+                portal_title)
         else:
-            self.site_title = u"%s | %s" % (self.page_title,
-                                                  portal_title)
+            self.site_title = self.page_title
 
 
 class SeoDublinCoreViewlet(DublinCoreViewlet):
+    index = ViewPageTemplateFile('templates/dublin_core.pt')
+
     def update(self):
         super(SeoDublinCoreViewlet, self).update()
 
@@ -75,13 +81,13 @@ class SeoDublinCoreViewlet(DublinCoreViewlet):
 
         if obj_id == 'contact-info':
             self.metatags.append(('description',
-                seoSettings.indexingContactInfoDescription))
+                seoSettings.contactInfoDescription))
         elif obj_id in ['login', 'login_form']:
             self.metatags.append(('description',
-                seoSettings.indexingLoginFormDescription))
+                seoSettings.loginFormDescription))
         elif obj_id == 'register':
             self.metatags.append(('description',
-                seoSettings.indexingRegisterFormDescription))
+                seoSettings.registerFormDescription))
         elif adapted:
             found = False
             for i, v in enumerate(self.metatags):
@@ -107,6 +113,12 @@ class SeoDublinCoreViewlet(DublinCoreViewlet):
                     (fti.getProperty('open_graph_type')))()
             self.metatags.extend(properties)
 
+        self.itemprops = []
+        if seoSettings.exposePublicationDate and \
+            self.context.EffectiveDate() != 'None':
+            self.itemprops.append(('datePublished',
+                                   self.context.effective_date.ISO8601()))
+
 
 class RobotsViewlet(DublinCoreViewlet):
     index = ViewPageTemplateFile('templates/robots.pt')
@@ -127,13 +139,13 @@ class RobotsViewlet(DublinCoreViewlet):
             if not obj_id:
                 obj_id = self.request.steps[-1].replace('@', '')
             if obj_id == 'contact-info':
-                if not seoSettings.indexingContactInfo:
+                if not seoSettings.indexContactInfo:
                     values.append('noindex')
             elif obj_id in ['login', 'login_form']:
-                if not seoSettings.indexingLoginForm:
+                if not seoSettings.indexLoginForm:
                     values.append('noindex')
             elif obj_id == 'register':
-                if not seoSettings.indexingRegisterForm:
+                if not seoSettings.indexRegisterForm:
                     values.append('noindex')
             elif obj_id == 'sitemap' or \
                  obj_id == 'accessibility-info' or \

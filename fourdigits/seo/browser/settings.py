@@ -9,6 +9,69 @@ from z3c.form.field import Fields
 from fourdigits.seo import MessageFactory as _
 
 
+class ISeoMetadataSettings(Interface):
+
+    includeSiteNameInTitle = schema.Bool(title=u"Include site name in title",
+            required=False,
+            description=u"Include the site name in the title tag")
+
+    siteNameSeparator = schema.TextLine(title=u"Site name separator",
+            required=False,
+            description=u"Separator used to separate the object title and the site name in the title tag")
+
+    exposePublicationDate = schema.Bool(title=u"Expose Publication Date",
+            required=False,
+            description=u"Expose publication date in the head")
+
+    loginFormTitle = schema.TextLine(title=u"Login Form Title",
+            required=False,
+            max_length=70,
+            description=u"Title for the login form")
+
+    loginFormDescription = schema.TextLine(
+            title=u"Login Form Description",
+            required=False,
+            max_length=155,
+            description=u"Description for the homepage")
+
+    registerFormTitle = schema.TextLine(title=u"Register Form Title",
+            required=False,
+            max_length=70,
+            description=u"Title for the registration form")
+
+    registerFormDescription = schema.TextLine(
+            title=u"Register Form Description",
+            required=False,
+            max_length=155,
+            description=u"Description for the registration form")
+
+    contactInfoTitle = schema.TextLine(title=u"Contact Info Title",
+            required=False,
+            max_length=70,
+            description=u"Title for the contact info page")
+
+    contactInfoDescription = schema.TextLine(
+            title=u"Contact Info Description",
+            required=False,
+            max_length=155,
+            description=u"Description for the contact info page")
+
+
+class ISeoIndexingSettings(Interface):
+
+    indexLoginForm = schema.Bool(title=u"Index Login Form",
+            required=False,
+            description=u"Whether or not to index the login form")
+
+    indexRegisterForm = schema.Bool(title=u"Index Register Form",
+            required=False,
+            description=u"Whether or not to index the register form")
+
+    indexContactInfo = schema.Bool(title=u"Index Contact Info",
+            required=False,
+            description=u"Whether or not to index the contact info page")
+
+
 class ISeoSocialSettings(Interface):
 
     googlePlusPublisherPage = schema.TextLine(title=u"Google+ Publisher Page",
@@ -55,56 +118,8 @@ class ISeoIconsSettings(Interface):
             description=u"Fill in your touch icon url (can contain expressions), should be 152x152 pixels, ie. string:${portal_url}/apple-touch-icon-152x152.png")
 
 
-class ISeoIndexingSettings(Interface):
-
-    indexingLoginForm = schema.Bool(title=u"Index Login Form",
-            required=False,
-            description=u"Whether or not to index the login form")
-
-    indexingLoginFormTitle = schema.TextLine(title=u"Login Form Title",
-            required=False,
-            max_length=70,
-            description=u"Title for the login form")
-
-    indexingLoginFormDescription = schema.TextLine(
-            title=u"Login Form Description",
-            required=False,
-            max_length=155,
-            description=u"Description for the homepage")
-
-    indexingRegisterForm = schema.Bool(title=u"Index Register Form",
-            required=False,
-            description=u"Whether or not to index the register form")
-
-    indexingRegisterFormTitle = schema.TextLine(title=u"Register Form Title",
-            required=False,
-            max_length=70,
-            description=u"Title for the registration form")
-
-    indexingRegisterFormDescription = schema.TextLine(
-            title=u"Register Form Description",
-            required=False,
-            max_length=155,
-            description=u"Description for the registration form")
-
-    indexingContactInfo = schema.Bool(title=u"Index Contact Info",
-            required=False,
-            description=u"Whether or not to index the contact info page")
-
-    indexingContactInfoTitle = schema.TextLine(title=u"Contact Info Title",
-            required=False,
-            max_length=70,
-            description=u"Title for the contact info page")
-
-    indexingContactInfoDescription = schema.TextLine(
-            title=u"Contact Info Description",
-            required=False,
-            max_length=155,
-            description=u"Description for the contact info page")
-
-
-class ISeoSettings(ISeoSocialSettings, ISeoIconsSettings,
-                   ISeoIndexingSettings):
+class ISeoSettings(ISeoMetadataSettings, ISeoIndexingSettings,
+                   ISeoSocialSettings, ISeoIconsSettings):
     """Seo Settings"""
 
 
