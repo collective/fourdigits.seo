@@ -11,111 +11,130 @@ from fourdigits.seo import MessageFactory as _
 
 class ISeoMetadataSettings(Interface):
 
-    includeSiteNameInTitle = schema.Bool(title=u"Include site name in title",
-            required=False,
-            description=u"Include the site name in the title tag")
+    includeSiteNameInTitle = schema.Bool(
+        title=u"Include site name in title",
+        required=False,
+        description=u"Include the site name in the title tag")
 
-    siteNameSeparator = schema.TextLine(title=u"Site name separator",
-            required=False,
-            description=u"Separator used to separate the object title and the site name in the title tag")
+    siteNameSeparator = schema.TextLine(
+        title=u"Site name separator",
+        required=False,
+        description=u"Separator used to separate the object title and the site name in the title tag")
 
-    exposePublicationDate = schema.Bool(title=u"Expose Publication Date",
-            required=False,
-            description=u"Expose publication date in the head")
+    exposePublicationDate = schema.Bool(
+        title=u"Expose Publication Date",
+        required=False,
+        description=u"Expose publication date in the head")
 
-    loginFormTitle = schema.TextLine(title=u"Login Form Title",
-            required=False,
-            max_length=70,
-            description=u"Title for the login form")
+    loginFormTitle = schema.TextLine(
+        title=u"Login Form Title",
+        required=False,
+        max_length=70,
+        description=u"Title for the login form")
 
     loginFormDescription = schema.TextLine(
-            title=u"Login Form Description",
-            required=False,
-            max_length=155,
-            description=u"Description for the homepage")
+        title=u"Login Form Description",
+        required=False,
+        max_length=155,
+        description=u"Description for the homepage")
 
-    registerFormTitle = schema.TextLine(title=u"Register Form Title",
-            required=False,
-            max_length=70,
-            description=u"Title for the registration form")
+    registerFormTitle = schema.TextLine(
+        title=u"Register Form Title",
+        required=False,
+        max_length=70,
+        description=u"Title for the registration form")
 
     registerFormDescription = schema.TextLine(
-            title=u"Register Form Description",
-            required=False,
-            max_length=155,
-            description=u"Description for the registration form")
+        title=u"Register Form Description",
+        required=False,
+        max_length=155,
+        description=u"Description for the registration form")
 
-    contactInfoTitle = schema.TextLine(title=u"Contact Info Title",
-            required=False,
-            max_length=70,
-            description=u"Title for the contact info page")
+    contactInfoTitle = schema.TextLine(
+        title=u"Contact Info Title",
+        required=False,
+        max_length=70,
+        description=u"Title for the contact info page")
 
     contactInfoDescription = schema.TextLine(
-            title=u"Contact Info Description",
-            required=False,
-            max_length=155,
-            description=u"Description for the contact info page")
+        title=u"Contact Info Description",
+        required=False,
+        max_length=155,
+        description=u"Description for the contact info page")
 
 
 class ISeoIndexingSettings(Interface):
 
-    indexLoginForm = schema.Bool(title=u"Index Login Form",
-            required=False,
-            description=u"Whether or not to index the login form")
+    indexLoginForm = schema.Bool(
+        title=u"Index Login Form",
+        required=False,
+        description=u"Whether or not to index the login form")
 
-    indexRegisterForm = schema.Bool(title=u"Index Register Form",
-            required=False,
-            description=u"Whether or not to index the register form")
+    indexRegisterForm = schema.Bool(
+        title=u"Index Register Form",
+        required=False,
+        description=u"Whether or not to index the register form")
 
-    indexContactInfo = schema.Bool(title=u"Index Contact Info",
-            required=False,
-            description=u"Whether or not to index the contact info page")
+    indexContactInfo = schema.Bool(
+        title=u"Index Contact Info",
+        required=False,
+        description=u"Whether or not to index the contact info page")
 
 
 class ISeoSocialSettings(Interface):
 
-    googlePlusPublisherPage = schema.TextLine(title=u"Google+ Publisher Page",
-            required=False,
-            description=u"Fill in your google publisher page, ie. https://plus.google.com/mybrand/")
+    googlePlusPublisherPage = schema.TextLine(
+        title=u"Google+ Publisher Page",
+        required=False,
+        description=u"Fill in your google publisher page, ie. https://plus.google.com/mybrand/")
 
-    exposeTwitterCard = schema.Bool(title=u"Expose Twitter Card",
-            required=False,
-            description=u"Expose Twitter Card using metatags in the head of the document")
+    exposeTwitterCard = schema.Bool(
+        title=u"Expose Twitter Card",
+        required=False,
+        description=u"Expose Twitter Card using metatags in the head of the document")
 
-    twitterSiteAccount = schema.TextLine(title=u"Twitter Site Account",
-            required=False,
-            description=u"Fill in your twitter site account, ie. @mybrand")
+    twitterSiteAccount = schema.TextLine(
+        title=u"Twitter Site Account",
+        required=False,
+        description=u"Fill in your twitter site account, ie. @mybrand")
 
-    exposeOpenGraph = schema.Bool(title=u"Expose Open Graph",
-            required=False,
-            description=u"Expose Open Graph using metatags in the head of the document")
+    exposeOpenGraph = schema.Bool(
+        title=u"Expose Open Graph",
+        required=False,
+        description=u"Expose Open Graph using metatags in the head of the document")
 
-    openGraphFallbackImage = schema.TextLine(title=u"Open Graph fallback image",
-            required=False,
-            description=u"Fill in your Open Graph fallback image url (can contain expressions), this is used when the content object doesn't have a leadimage, ie. string:${portal_url}/open-graph-fallback.png")
+    openGraphFallbackImage = schema.TextLine(
+        title=u"Open Graph fallback image",
+        required=False,
+        description=u"Fill in your Open Graph fallback image url (can contain expressions), this is used when the content object doesn't have a leadimage, ie. string:${portal_url}/open-graph-fallback.png")
 
 
 class ISeoIconsSettings(Interface):
 
-    favicon = schema.TextLine(title=u"Favicon url",
-            required=False,
-            description=u"Fill in your favicon url (can contain expressions), ie. string:${portal_url}/favicon.ico")
+    favicon = schema.TextLine(
+        title=u"Favicon url",
+        required=False,
+        description=u"Fill in your favicon url (can contain expressions), ie. string:${portal_url}/favicon.ico")
 
-    touchIconIphone = schema.TextLine(title=u"Touch icon iPhone url",
-            required=False,
-            description=u"Fill in your touch icon url (can contain expressions), should be 60x60 pixels, ie. string:${portal_url}/apple-touch-icon.png")
+    touchIconIphone = schema.TextLine(
+        title=u"Touch icon iPhone url",
+        required=False,
+        description=u"Fill in your touch icon url (can contain expressions), should be 60x60 pixels, ie. string:${portal_url}/apple-touch-icon.png")
 
-    touchIconIphoneRetina = schema.TextLine(title=u"Touch icon iPhone Retina url",
-            required=False,
-            description=u"Fill in your touch icon url (can contain expressions), should be 120x120 pixels, ie. string:${portal_url}/apple-touch-icon-120x120.png")
+    touchIconIphoneRetina = schema.TextLine(
+        title=u"Touch icon iPhone Retina url",
+        required=False,
+        description=u"Fill in your touch icon url (can contain expressions), should be 120x120 pixels, ie. string:${portal_url}/apple-touch-icon-120x120.png")
 
-    touchIconIpad = schema.TextLine(title=u"Touch icon iPad url",
-            required=False,
-            description=u"Fill in your touch icon url (can contain expressions), should be 76x76 pixels, ie. string:${portal_url}/apple-touch-icon-76x76.png")
+    touchIconIpad = schema.TextLine(
+        title=u"Touch icon iPad url",
+        required=False,
+        description=u"Fill in your touch icon url (can contain expressions), should be 76x76 pixels, ie. string:${portal_url}/apple-touch-icon-76x76.png")
 
-    touchIconIpadRetina = schema.TextLine(title=u"Touch icon iPad Retina url",
-            required=False,
-            description=u"Fill in your touch icon url (can contain expressions), should be 152x152 pixels, ie. string:${portal_url}/apple-touch-icon-152x152.png")
+    touchIconIpadRetina = schema.TextLine(
+        title=u"Touch icon iPad Retina url",
+        required=False,
+        description=u"Fill in your touch icon url (can contain expressions), should be 152x152 pixels, ie. string:${portal_url}/apple-touch-icon-152x152.png")
 
 
 class ISeoSettings(ISeoMetadataSettings, ISeoIndexingSettings,

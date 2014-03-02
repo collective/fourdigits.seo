@@ -1,6 +1,5 @@
 from cgi import escape
 from plone.app.layout.viewlets.common import TitleViewlet
-from plone.app.layout.links.viewlets import render_cachekey
 from plone.memoize.compress import xhtml_compress
 from plone.app.layout.viewlets.common import DublinCoreViewlet
 from plone.app.layout.links.viewlets import AuthorViewlet
@@ -81,13 +80,13 @@ class SeoDublinCoreViewlet(DublinCoreViewlet):
 
         if obj_id == 'contact-info':
             self.metatags.append(('description',
-                seoSettings.contactInfoDescription))
+                                  seoSettings.contactInfoDescription))
         elif obj_id in ['login', 'login_form']:
             self.metatags.append(('description',
-                seoSettings.loginFormDescription))
+                                 seoSettings.loginFormDescription))
         elif obj_id == 'register':
             self.metatags.append(('description',
-                seoSettings.registerFormDescription))
+                                 seoSettings.registerFormDescription))
         elif adapted:
             found = False
             for i, v in enumerate(self.metatags):
@@ -101,21 +100,20 @@ class SeoDublinCoreViewlet(DublinCoreViewlet):
         portal_types = getToolByName(self.context, 'portal_types')
         fti = portal_types.getTypeInfo(self.context.portal_type)
         if fti.getProperty('twitter_card', False) and \
-            seoSettings.exposeTwitterCard:
+                seoSettings.exposeTwitterCard:
             properties = self.context.restrictedTraverse(
                 '@@twitter-card-%s' % (fti.getProperty('twitter_card')))()
             self.metatags.extend(properties)
 
         if fti.getProperty('open_graph_type', False) and \
-            seoSettings.exposeOpenGraph:
+                seoSettings.exposeOpenGraph:
             properties = self.context.restrictedTraverse(
-                '@@open-graph-type-%s' % \
-                    (fti.getProperty('open_graph_type')))()
+                '@@open-graph-type-%s' % (fti.getProperty('open_graph_type')))()
             self.metatags.extend(properties)
 
         self.itemprops = []
         if seoSettings.exposePublicationDate and \
-            self.context.EffectiveDate() != 'None':
+                self.context.EffectiveDate() != 'None':
             self.itemprops.append(('datePublished',
                                    self.context.effective_date.ISO8601()))
 
@@ -148,9 +146,9 @@ class RobotsViewlet(DublinCoreViewlet):
                 if not seoSettings.indexRegisterForm:
                     values.append('noindex')
             elif obj_id == 'sitemap' or \
-                 obj_id == 'accessibility-info' or \
-                 obj_id == 'search' or \
-                 obj_id == 'mail_password_form':
+                    obj_id == 'accessibility-info' or \
+                    obj_id == 'search' or \
+                    obj_id == 'mail_password_form':
                 values.append('noindex')
 
         self.content = ', '.join(values)
@@ -168,7 +166,7 @@ class SeoAuthorViewlet(AuthorViewlet):
             self.author_url = member.getProperty('google_author')
         else:
             self.author_url = '%s/author/%s' % (self.navigation_root_url,
-                                                 self.context.Creator())
+                                                self.context.Creator())
 
         registry = getUtility(IRegistry)
         seoSettings = registry.forInterface(ISeoSettings)

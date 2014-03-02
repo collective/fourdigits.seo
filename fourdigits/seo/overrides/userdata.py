@@ -18,42 +18,42 @@ class IEnhancedUserDataSchema(IUserDataSchema):
     google_author = schema.TextLine(
         title=_(u'label_google_author', default=u'Google author'),
         description=_(u'help_google_author',
-            default=u"Fill in your google author page, ie. https://plus.google.com/123456789012345678901/"),
+                      default=u"Fill in your google author page, ie. https://plus.google.com/123456789012345678901/"),
         required=False,
-        )
+    )
 
     twitter_author = schema.TextLine(
         title=_(u'label_twitter_author', default=u'Twitter author'),
         description=_(u'help_twitter_author',
-            default=u"Fill in your twitter author, ie. @johndoe"),
+                      default=u"Fill in your twitter author, ie. @johndoe"),
         required=False,
-        )
+    )
 
     facebook_id = schema.TextLine(
         title=_(u'label_facebook_id', default=u'Facebook ID'),
         description=_(u'help_facebook_id',
-            default=u"Fill in your facebook id, ie. 1234567890"),
+                      default=u"Fill in your facebook id, ie. 1234567890"),
         required=False,
-        )
+    )
 
     first_name = schema.TextLine(
         title=_(u'label_first_name', default=u'First name'),
         description=_(u'help_first_name',
-            default=u"Fill in your first name"),
+                      default=u"Fill in your first name"),
         required=False,
-        )
+    )
 
     last_name = schema.TextLine(
         title=_(u'label_last_name', default=u'Last name'),
         description=_(u'help_last_name',
-            default=u"Fill in your last name"),
+                      default=u"Fill in your last name"),
         required=False,
-        )
+    )
 
     gender = schema.Choice(
         title=_(u'label_gender', default=u'Gender'),
         description=_(u'help_gender',
-            default=u"Fill in your gender"),
+                      default=u"Fill in your gender"),
         source=SimpleVocabulary([
             SimpleVocabulary.createTerm('male', 'male', _('Male')),
             SimpleVocabulary.createTerm('female', 'female', _('Female'))]),

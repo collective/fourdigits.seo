@@ -1,5 +1,6 @@
 import zope.interface
 
+
 class IAddOnInstalled(zope.interface.Interface):
     """ A layer specific for this add-on product.
 

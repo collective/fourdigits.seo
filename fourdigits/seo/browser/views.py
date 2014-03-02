@@ -7,7 +7,6 @@ from zope.component import getUtility
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.Five import BrowserView
-from plone.app.contenttypes.behaviors.leadimage import ILeadImage
 from Products.CMFCore.Expression import Expression
 from Products.CMFCore.Expression import getExprContext
 
@@ -100,7 +99,7 @@ class OpenGraphBase(PropertiesBase):
         self.properties.append(('og:locale', loc))
 
         self.portal_state = getMultiAdapter((self.context, self.request),
-                                       name=u'plone_portal_state')
+                                            name=u'plone_portal_state')
         portal_title = escape(safe_unicode(self.portal_state
                                            .navigation_root_title()))
         self.properties.append(('og:site_name', portal_title))
