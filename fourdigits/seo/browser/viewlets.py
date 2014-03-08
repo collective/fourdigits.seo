@@ -33,11 +33,12 @@ class SeoTitleViewlet(TitleViewlet):
         if not obj_id:
             obj_id = self.request.steps[-1].replace('@', '')
 
-        if obj_id == 'contact-info':
+        if obj_id == 'contact-info' and self.seoSettings.contactInfoTitle:
             return self.seoSettings.contactInfoTitle
-        elif obj_id in ['login', 'login_form']:
+        elif obj_id in ['login', 'login_form'] and \
+                self.seoSettings.loginFormTitle:
             return self.seoSettings.loginFormTitle
-        elif obj_id == 'register':
+        elif obj_id == 'register' and self.seoSettings.registerFormTitle:
             return self.seoSettings.registerFormTitle
 
         adapted = ISeoAdapter(self.context, None)
@@ -79,14 +80,17 @@ class SeoDublinCoreViewlet(DublinCoreViewlet):
             obj_id = self.request.steps[-1].replace('@', '')
 
         if obj_id == 'contact-info':
-            self.metatags.append(('description',
-                                  seoSettings.contactInfoDescription))
+            if seoSettings.contactInfoDescription:
+                self.metatags.append(('description',
+                                      seoSettings.contactInfoDescription))
         elif obj_id in ['login', 'login_form']:
-            self.metatags.append(('description',
-                                 seoSettings.loginFormDescription))
+            if seoSettings.loginFormDescription:
+                self.metatags.append(('description',
+                                      seoSettings.loginFormDescription))
         elif obj_id == 'register':
-            self.metatags.append(('description',
-                                 seoSettings.registerFormDescription))
+            if seoSettings.registerFormDescription:
+                self.metatags.append(('description',
+                                      seoSettings.registerFormDescription))
         elif adapted:
             found = False
             for i, v in enumerate(self.metatags):
