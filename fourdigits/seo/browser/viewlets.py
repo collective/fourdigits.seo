@@ -128,7 +128,7 @@ class RobotsViewlet(DublinCoreViewlet):
     def update(self):
         values = []
         published = getattr(self.request, 'PUBLISHED', None)
-        if published and IContentish.providedBy(published):
+        if published and IContentish.providedBy(self.context):
             obj = aq_base(self.context)
             for x in ['seo_noindex', 'seo_nofollow', 'seo_nosnippet',
                       'seo_noarchive']:
