@@ -108,6 +108,11 @@ class ISeoSocialSettings(Interface):
         required=False,
         description=u"Fill in your Open Graph fallback image url (can contain expressions), this is used when the content object doesn't have a leadimage, ie. string:${portal_url}/open-graph-fallback.png")
 
+    exposeAuthorOpenGraph = schema.Bool(
+        title=u"Expose Open Graph Author",
+        required=False,
+        description=u"Expose Open Graph og:article:author information")
+
 
 class ISeoIconsSettings(Interface):
 

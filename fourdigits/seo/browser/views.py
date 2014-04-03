@@ -21,7 +21,12 @@ class PropertiesBase(BrowserView):
         self.seoSettings = registry.forInterface(ISeoSettings)
         mtool = getToolByName(self.context, 'portal_membership')
         self.member = mtool.getMemberById(self.context.Creator())
-        self.image = getattr(self.context, 'image', None)
+        self.image = getattr(self.context, 'image',
+                             getattr(self.context, 'afbeelding', None))
+        if getattr(self.context, 'image', None):
+            self.imagename = 'image'
+        elif getattr(self.context, 'afbeelding', None):
+            self.imagename = 'afbeelding'
 
 
 class TwitterBase(PropertiesBase):
@@ -76,7 +81,9 @@ class OpenGraphBase(PropertiesBase):
         self.properties.append(('og:description', self.description))
 
         if self.image:
-            self.properties.append(('og:image', self.context.absolute_url()))
+            scales = self.context.restrictedTraverse('@@images')
+            large = scales.scale(self.imagename, width=1000, height=1000)
+            self.properties.append(('og:image', large.url))
             self.properties.append(('og:image:type', self.image.contentType))
             self.properties.append(('og:image:width', self.image._width))
             self.properties.append(('og:image:height', self.image._height))
@@ -121,19 +128,23 @@ class OpenGraphArticle(OpenGraphBase):
             self.properties.append(('og:article:expiration_time',
                                     self.context.expiration_date.ISO8601()))
 
-        if self.member.getProperty('first_name'):
+        if self.member.getProperty('first_name') and \
+                self.seoSettings.exposeAuthorOpenGraph:
             self.properties.append(('og:article:author:first_name',
                                     self.member.getProperty('first_name')))
 
-        if self.member.getProperty('last_name'):
+        if self.member.getProperty('last_name') and \
+                self.seoSettings.exposeAuthorOpenGraph:
             self.properties.append(('og:article:author:last_name',
                                     self.member.getProperty('last_name')))
 
-        if self.member.getProperty('id'):
+        if self.member.getProperty('id') and \
+                self.seoSettings.exposeAuthorOpenGraph:
             self.properties.append(('og:article:author:username',
                                     self.member.getProperty('id')))
 
-        if self.member.getProperty('gender'):
+        if self.member.getProperty('gender') and \
+                self.seoSettings.exposeAuthorOpenGraph:
             self.properties.append(('og:article:author:gender',
                                     self.member.getProperty('gender')))
 

@@ -11,6 +11,7 @@
     <value key="indexContactInfo">False</value>
     <value key="exposeTwitterCard">False</value>
     <value key="exposeOpenGraph">False</value>
+    <value key="exposeAuthorOpenGraph">False</value>
     <value key="googlePlusPublisherPage"></value>
     <value key="twitterSiteAccount"></value>
     <value key="favicon">string:${portal_url}/favicon.ico</value>
