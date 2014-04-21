@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.5 (unreleased)
+0.5 (2014-04-21)
 ----------------
 
 - force locale to be lang_LANG like nl_NL to be valid
