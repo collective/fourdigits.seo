@@ -103,6 +103,9 @@ class OpenGraphBase(PropertiesBase):
         loc = portal_properties.site_properties.getProperty('default_language')
         if '-' in loc:
             loc = loc.split('-')[0] + '_' + loc.split('-')[1].upper()
+        if '_' not in loc:
+            # make sure its nl_NL or en_US
+            loc = loc.lower() + '_' + loc.upper()
         self.properties.append(('og:locale', loc))
 
         self.portal_state = getMultiAdapter((self.context, self.request),
