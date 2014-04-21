@@ -4,8 +4,8 @@ Changelog
 0.4 (unreleased)
 ----------------
 
-- Nothing changed yet.
-
+- og needs property attribute not name
+  [maartenkling]
 
 0.3 (2014-04-03)
 ----------------

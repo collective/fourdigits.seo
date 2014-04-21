@@ -109,11 +109,12 @@ class SeoDublinCoreViewlet(DublinCoreViewlet):
                 '@@twitter-card-%s' % (fti.getProperty('twitter_card')))()
             self.metatags.extend(properties)
 
+        self.og_metatags = []
         if fti.getProperty('open_graph_type', False) and \
                 seoSettings.exposeOpenGraph:
             properties = self.context.restrictedTraverse(
                 '@@open-graph-type-%s' % (fti.getProperty('open_graph_type')))()
-            self.metatags.extend(properties)
+            self.og_metatags.extend(properties)
 
         self.itemprops = []
         if seoSettings.exposePublicationDate and \
