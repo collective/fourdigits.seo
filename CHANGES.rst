@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.4 (unreleased)
+0.4 (2014-04-21)
 ----------------
 
 - og needs property attribute not name
