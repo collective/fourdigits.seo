@@ -52,7 +52,7 @@ msgstr ""
 
 #: ./behaviors/seo.py:39
 msgid "Override the meta description. When empty the default description will be used"
-msgstr "Override de meta description. Wanneer geen beschrijving gegeven default wordt gebruikt"
+msgstr "Override de meta description. Wanneer geen beschrijving is gegeven zal de standaard beschrijving worden gebruikt"
 
 #: ./behaviors/seo.py:32
 msgid "Override the meta title. When empty the default title will be used"
