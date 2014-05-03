@@ -56,7 +56,7 @@ msgstr "Override de meta description. Wanneer geen beschrijving gegeven default 
 
 #: ./behaviors/seo.py:32
 msgid "Override the meta title. When empty the default title will be used"
-msgstr "Override de meta title. Wanneer geen titel gegeven de standaard titel wordt gebruikt"
+msgstr "Override de meta title. Wanneer geen titel is gegeven zal de standaard titel worden gebruikt"
 
 #: ./behaviors/seo.py:20
 #: ./profiles/default/controlpanel.xml
@@ -69,7 +69,7 @@ msgstr ""
 
 #: ./behaviors/seo.py:52
 msgid "Tells search engines not to follow links on this page"
-msgstr "Zoekmachines zullen de links op deze pagina niet te volgen"
+msgstr "Zoekmachines zullen de links op deze pagina niet volgen"
 
 #: ./behaviors/seo.py:46
 msgid "Tells search engines not to index this page"
