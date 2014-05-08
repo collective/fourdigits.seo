@@ -131,25 +131,26 @@ class OpenGraphArticle(OpenGraphBase):
             self.properties.append(('og:article:expiration_time',
                                     self.context.expiration_date.ISO8601()))
 
-        if self.member.getProperty('first_name') and \
-                self.seoSettings.exposeAuthorOpenGraph:
-            self.properties.append(('og:article:author:first_name',
-                                    self.member.getProperty('first_name')))
+        if self.member:
+            if self.member.getProperty('first_name') and \
+                    self.seoSettings.exposeAuthorOpenGraph:
+                self.properties.append(('og:article:author:first_name',
+                                        self.member.getProperty('first_name')))
 
-        if self.member.getProperty('last_name') and \
-                self.seoSettings.exposeAuthorOpenGraph:
-            self.properties.append(('og:article:author:last_name',
-                                    self.member.getProperty('last_name')))
+            if self.member.getProperty('last_name') and \
+                    self.seoSettings.exposeAuthorOpenGraph:
+                self.properties.append(('og:article:author:last_name',
+                                        self.member.getProperty('last_name')))
 
-        if self.member.getProperty('id') and \
-                self.seoSettings.exposeAuthorOpenGraph:
-            self.properties.append(('og:article:author:username',
-                                    self.member.getProperty('id')))
+            if self.member.getProperty('id') and \
+                    self.seoSettings.exposeAuthorOpenGraph:
+                self.properties.append(('og:article:author:username',
+                                        self.member.getProperty('id')))
 
-        if self.member.getProperty('gender') and \
-                self.seoSettings.exposeAuthorOpenGraph:
-            self.properties.append(('og:article:author:gender',
-                                    self.member.getProperty('gender')))
+            if self.member.getProperty('gender') and \
+                    self.seoSettings.exposeAuthorOpenGraph:
+                self.properties.append(('og:article:author:gender',
+                                        self.member.getProperty('gender')))
 
         navroot = self.portal_state.navigation_root()
         contentPath = self.context.getPhysicalPath()[
