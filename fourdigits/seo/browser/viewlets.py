@@ -145,7 +145,7 @@ class RobotsViewlet(DublinCoreViewlet):
             if obj_id == 'contact-info':
                 if not seoSettings.indexContactInfo:
                     values.append('noindex')
-            elif obj_id in ['login', 'login_form']:
+            elif obj_id in ['login', 'login_form', 'require_login', ]:
                 if not seoSettings.indexLoginForm:
                     values.append('noindex')
             elif obj_id == 'register':
