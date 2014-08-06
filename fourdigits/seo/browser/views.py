@@ -83,10 +83,13 @@ class OpenGraphBase(PropertiesBase):
         if self.image:
             scales = self.context.restrictedTraverse('@@images')
             large = scales.scale(self.imagename, width=1000, height=1000)
-            self.properties.append(('og:image', large.url))
-            self.properties.append(('og:image:type', self.image.contentType))
-            self.properties.append(('og:image:width', self.image._width))
-            self.properties.append(('og:image:height', self.image._height))
+            if large:
+                # posible when scaling somehow fails
+                self.properties.append(('og:image', large.url))
+                self.properties.append(('og:image:type',
+                                        self.image.contentType))
+                self.properties.append(('og:image:width', self.image._width))
+                self.properties.append(('og:image:height', self.image._height))
         elif self.seoSettings.openGraphFallbackImage:
             expression = Expression(
                 str(self.seoSettings.openGraphFallbackImage))
