@@ -77,6 +77,7 @@ class TwitterCardPhoto(TwitterBase):
 class OpenGraphBase(PropertiesBase):
     def __call__(self):
         super(OpenGraphBase, self).__call__()
+        # TODO self.title must be html safe, & = &amp;
         self.properties.append(('og:title', self.title))
         self.properties.append(('og:description', self.description))
 
