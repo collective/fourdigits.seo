@@ -82,8 +82,12 @@ class OpenGraphBase(PropertiesBase):
         self.properties.append(('og:description', self.description))
 
         if self.image:
-            scales = self.context.restrictedTraverse('@@images')
-            large = scales.scale(self.imagename, width=1000, height=1000)
+            try:
+                scales = self.context.restrictedTraverse('@@images')
+                large = scales.scale(self.imagename, width=1000, height=1000)
+            except AttributeError:
+                # this can happen during adding portlets
+                large = False
             if large:
                 # posible when scaling somehow fails
                 self.properties.append(('og:image', large.url))
