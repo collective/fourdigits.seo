@@ -15,8 +15,8 @@ class PropertiesBase(BrowserView):
     def __call__(self):
         self.properties = []
         adapted = ISeoAdapter(self.context)
-        self.title = escape(adapted.title)
-        self.description = escape(adapted.description)
+        self.title = adapted.title
+        self.description = adapted.description
         registry = getUtility(IRegistry)
         self.seoSettings = registry.forInterface(ISeoSettings)
         mtool = getToolByName(self.context, 'portal_membership')
@@ -77,7 +77,6 @@ class TwitterCardPhoto(TwitterBase):
 class OpenGraphBase(PropertiesBase):
     def __call__(self):
         super(OpenGraphBase, self).__call__()
-        # TODO self.title must be html safe, & = &amp;
         self.properties.append(('og:title', self.title))
         self.properties.append(('og:description', self.description))
 
