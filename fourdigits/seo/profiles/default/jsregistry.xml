@@ -2,6 +2,7 @@
 <object name="portal_javascripts">
   <javascript cacheable="True"
               compression="none"
+              authenticated="True"
               cookable="False"
               enabled="True"
               id="++resource++fourdigits.seo/authoring.js"
