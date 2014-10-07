@@ -29,14 +29,14 @@ class ISeo(form.Schema):
 
     seo_title = schema.TextLine(
         title=_(u"Title"),
-        description=_(u"Override the meta title. When empty the default title will be used"),
+        description=_(u"Override the meta title. When empty the default title will be used. Use maximum 50 chararcters."),
         required=False,
         max_length=70,
     )
 
     seo_description = schema.TextLine(
         title=_(u"Description"),
-        description=_(u"Override the meta description. When empty the default description will be used"),
+        description=_(u"Override the meta description. When empty the default description will be used. Use maximum 150 characters."),
         required=False,
         max_length=155,
     )
