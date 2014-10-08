@@ -27,6 +27,7 @@ class ICanonical(form.Schema):
         title=_(u"Canonical"),
         description=_(u"Add reference to canonical object."),
         source=ObjPathSourceBinder(),
+        required=False,
         )
 
 

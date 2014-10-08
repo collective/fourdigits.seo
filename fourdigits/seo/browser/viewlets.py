@@ -160,6 +160,21 @@ class RobotsViewlet(DublinCoreViewlet):
         self.content = ', '.join(values)
 
 
+class CanonicalViewlet(DublinCoreViewlet):
+
+    @memoize
+    def render(self):
+        context_state = getMultiAdapter(
+            (self.context, self.request), name=u'plone_context_state')
+        canonical_url = context_state.canonical_object_url()
+        obj = aq_base(self.context)
+        seo_canonical = getattr(obj, 'seo_canonical', False)
+        if seo_canonical:
+            canonical_url = seo_canonical.to_object.absolute_url()
+
+        return u'    <link rel="canonical" href="%s" />' % canonical_url
+
+
 class SeoAuthorViewlet(AuthorViewlet):
 
     _template = ViewPageTemplateFile('templates/author.pt')

@@ -32,6 +32,14 @@
       />
 
   <browser:viewlet
+      name="plone.links.canonical_url"
+      manager="plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
+      class=".viewlets.CanonicalViewlet"
+      permission="zope2.View"
+      layer="..interfaces.IAddOnInstalled"
+      />
+
+  <browser:viewlet
       name="plone.links.author"
       manager="plone.app.layout.viewlets.interfaces.IHtmlHead"
       class=".viewlets.SeoAuthorViewlet"

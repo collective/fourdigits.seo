@@ -27,6 +27,7 @@ class IImage(form.Schema):
         title=_(u"Image"),
         description=_(u"Add image when social sharing this page."),
         source=ObjPathSourceBinder(),
+        required=False,
         )
 
 
