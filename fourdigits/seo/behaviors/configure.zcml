@@ -21,4 +21,22 @@
       factory=".seo.SeoAdapter"
       />
 
+  <plone:behavior
+      title="Image"
+      description="Adds Image reference field used for sharing link."
+      provides=".image.IImage"
+      factory=".image.Image"
+      for="plone.dexterity.interfaces.IDexterityContent"
+      marker=".image.IImage"
+      />
+
+  <plone:behavior
+      title="Canonical"
+      description="Adds a canonical object reference field used in the head."
+      provides=".canonical.ICanonical"
+      factory=".canonical.Canonical"
+      for="plone.dexterity.interfaces.IDexterityContent"
+      marker=".canonical.ICanonical"
+      />
+
 </configure>

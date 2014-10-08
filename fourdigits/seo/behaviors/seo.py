@@ -1,12 +1,13 @@
-"""Behaviours to add SEO Properties
+"""Behaviour to add SEO Properties
 """
 from fourdigits.seo import MessageFactory as _
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.dexterity.interfaces import IDexterityContent
 from plone.directives import form
 from zope import schema
-from zope.interface import implements, alsoProvides
 from zope.component import adapts
+from zope.interface import alsoProvides
+from zope.interface import implements
 from zope.interface import Interface
 from Products.CMFPlone.utils import safe_unicode
 
