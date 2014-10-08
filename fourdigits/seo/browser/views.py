@@ -28,6 +28,15 @@ class PropertiesBase(BrowserView):
         elif getattr(self.context, 'afbeelding', None):
             self.imagename = 'afbeelding'
 
+    def getScale(self, width=None, height=None):
+        try:
+            scales = self.context.restrictedTraverse('@@images')
+            scale = scales.scale(self.imagename, width=width, height=height)
+        except AttributeError:
+            scale = False
+
+        return scale
+
 
 class TwitterBase(PropertiesBase):
     def __call__(self):
@@ -51,10 +60,9 @@ class TwitterCardSummary(TwitterBase):
         self.properties.append(('twitter:description', self.description))
 
         if self.image:
-            scales = self.context.restrictedTraverse('@@images')
-            thumbnail = scales.scale('image', width=120, height=120,
-                                     direction="down")
-            self.properties.append(('twitter:image', thumbnail.url))
+            thumbnail = self.getScale(width=120, height=120)
+            if thumbnail:
+                self.properties.append(('twitter:image', thumbnail.url))
 
         return self.properties
 
@@ -65,11 +73,11 @@ class TwitterCardPhoto(TwitterBase):
         self.properties.append(('twitter:card', 'photo'))
 
         if self.image:
-            scales = self.context.restrictedTraverse('@@images')
-            thumbnail = scales.scale('image', width=560, height=750)
-            self.properties.append(('twitter:image', thumbnail.url))
-            self.properties.append(('twitter:image:width', thumbnail.width))
-            self.properties.append(('twitter:image:height', thumbnail.height))
+            thumbnail = self.getScale(width=560, height=750)
+            if thumbnail:
+                self.properties.append(('twitter:image', thumbnail.url))
+                self.properties.append(('twitter:image:width', thumbnail.width))
+                self.properties.append(('twitter:image:height', thumbnail.height))
 
         return self.properties
 
@@ -81,19 +89,13 @@ class OpenGraphBase(PropertiesBase):
         self.properties.append(('og:description', self.description))
 
         if self.image:
-            try:
-                scales = self.context.restrictedTraverse('@@images')
-                large = scales.scale(self.imagename, width=1000, height=1000)
-            except AttributeError:
-                # this can happen during adding portlets
-                large = False
+            large = self.getScale(width=1000, height=1000)
             if large:
-                # posible when scaling somehow fails
                 self.properties.append(('og:image', large.url))
                 self.properties.append(('og:image:type',
-                                        self.image.contentType))
-                self.properties.append(('og:image:width', self.image._width))
-                self.properties.append(('og:image:height', self.image._height))
+                                        large.contentType))
+                self.properties.append(('og:image:width', large._width))
+                self.properties.append(('og:image:height', large._height))
         elif self.seoSettings.openGraphFallbackImage:
             expression = Expression(
                 str(self.seoSettings.openGraphFallbackImage))
