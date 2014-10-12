@@ -32,7 +32,7 @@ class IEnhancedUserDataSchema(IUserDataSchema):
     facebook_id = schema.TextLine(
         title=_(u'label_facebook_id', default=u'Facebook ID'),
         description=_(u'help_facebook_id',
-                      default=u"Fill in your facebook id, ie. 1234567890"),
+                      default=u"Fill in your facebook id, or the url to your profile page"),
         required=False,
     )
 
