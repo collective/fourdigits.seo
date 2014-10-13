@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-04-28 17:57+0000\n"
+"POT-Creation-Date: 2014-10-13 17:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,19 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: fourdigits.seo\n"
 
-#: ./behaviors/seo.py:38
+#: ./behaviors/image.py:28
+msgid "Add image when social sharing this page."
+msgstr ""
+
+#: ./behaviors/canonical.py:28
+msgid "Add reference to canonical object."
+msgstr ""
+
+#: ./behaviors/canonical.py:27
+msgid "Canonical"
+msgstr ""
+
+#: ./behaviors/seo.py:39
 msgid "Description"
 msgstr ""
 
@@ -29,6 +41,10 @@ msgstr ""
 msgid "Icons"
 msgstr ""
 
+#: ./behaviors/image.py:27
+msgid "Image"
+msgstr ""
+
 #: ./browser/settings.py:161
 msgid "Indexing"
 msgstr ""
@@ -37,32 +53,33 @@ msgstr ""
 msgid "Male"
 msgstr ""
 
-#: ./behaviors/seo.py:57
+#: ./behaviors/seo.py:58
 msgid "No Archive"
 msgstr ""
 
-#: ./behaviors/seo.py:51
+#: ./behaviors/seo.py:52
 msgid "No Follow"
 msgstr ""
 
-#: ./behaviors/seo.py:45
+#: ./behaviors/seo.py:46
 msgid "No Index"
 msgstr ""
 
-#: ./behaviors/seo.py:63
+#: ./behaviors/seo.py:64
 msgid "No Snippet"
 msgstr ""
 
-#: ./behaviors/seo.py:39
-msgid "Override the meta description. When empty the default description will be used"
+#: ./behaviors/seo.py:40
+msgid "Override the meta description. When empty the default description will be used. Use maximum 150 characters."
 msgstr ""
 
-#: ./behaviors/seo.py:32
-msgid "Override the meta title. When empty the default title will be used"
+#: ./behaviors/seo.py:33
+msgid "Override the meta title. When empty the default title will be used. Use maximum 50 chararcters."
 msgstr ""
 
-#: ./behaviors/seo.py:20
-#: ./profiles/default/controlpanel.xml
+#: ./behaviors/canonical.py:21
+#: ./behaviors/image.py:21
+#: ./behaviors/seo.py:21
 msgid "SEO"
 msgstr ""
 
@@ -70,27 +87,27 @@ msgstr ""
 msgid "Social"
 msgstr ""
 
-#: ./behaviors/seo.py:52
+#: ./behaviors/seo.py:53
 msgid "Tells search engines not to follow links on this page"
 msgstr ""
 
-#: ./behaviors/seo.py:46
+#: ./behaviors/seo.py:47
 msgid "Tells search engines not to index this page"
 msgstr ""
 
-#: ./behaviors/seo.py:64
+#: ./behaviors/seo.py:65
 msgid "Tells search engines not to show a snippet under your listing"
 msgstr ""
 
-#: ./behaviors/seo.py:58
+#: ./behaviors/seo.py:59
 msgid "Tells search engines not to store a cached copy of this page"
 msgstr ""
 
-#: ./behaviors/seo.py:31
+#: ./behaviors/seo.py:32
 msgid "Title"
 msgstr ""
 
-#. Default: "Fill in your facebook id, ie. 1234567890"
+#. Default: "Fill in your facebook id, or the url to your profile page"
 #: ./overrides/userdata.py:34
 msgid "help_facebook_id"
 msgstr ""
