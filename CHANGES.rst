@@ -4,8 +4,8 @@ Changelog
 0.14 (unreleased)
 -----------------
 
-- Nothing changed yet.
-
+- Add linkedin, upgrade step, add profile data to memberpas
+  [maartenkling]
 
 0.13 (2014-10-13)
 -----------------

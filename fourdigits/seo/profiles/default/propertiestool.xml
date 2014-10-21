@@ -2,6 +2,7 @@
 <object name="portal_properties" meta_type="Plone Properties Tool">
  <object name="site_properties" meta_type="Plone Property Sheet">
   <property name="user_registration_fields" type="lines" purge="False">
+   <element value="linkedin_author" />
    <element value="google_author" />
    <element value="twitter_author" />
    <element value="facebook_id" />

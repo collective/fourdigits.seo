@@ -15,6 +15,13 @@ class UserDataSchemaProvider(object):
 
 
 class IEnhancedUserDataSchema(IUserDataSchema):
+    linkedin_author = schema.TextLine(
+        title=_(u'label_linkedin_author', default=u'Linkedin author'),
+        description=_(u'help_linkedin_author',
+                      default=u"Fill in your linkedin author page, ie. http://nl.linkedin.com/in/username"),
+        required=False,
+    )
+
     google_author = schema.TextLine(
         title=_(u'label_google_author', default=u'Google author'),
         description=_(u'help_google_author',
@@ -62,6 +69,12 @@ class IEnhancedUserDataSchema(IUserDataSchema):
 
 
 class EnhancedUserDataPanelAdapter(UserDataPanelAdapter):
+
+    def get_linkedin_author(self):
+        return self.context.getProperty('linkedin_author', '')
+    def set_linkedin_author(self, value):
+        return self.context.setMemberProperties({'linkedin_author': value})
+    linkedin_author = property(get_linkedin_author, set_linkedin_author)
 
     def get_google_author(self):
         return self.context.getProperty('google_author', '')
