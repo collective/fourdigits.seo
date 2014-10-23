@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.14 (unreleased)
+0.14 (2014-10-23)
 -----------------
 
 - Add linkedin, upgrade step, add profile data to memberpas
