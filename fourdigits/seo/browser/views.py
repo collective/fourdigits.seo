@@ -95,7 +95,7 @@ class OpenGraphBase(PropertiesBase):
                 self.properties.append(('og:image:type',
                                         self.image.contentType))
                 self.properties.append(('og:image:width', '1000'))
-                self.properties.append(('og:image:height','1000'))
+                self.properties.append(('og:image:height', '1000'))
         elif self.seoSettings.openGraphFallbackImage:
             expression = Expression(
                 str(self.seoSettings.openGraphFallbackImage))
