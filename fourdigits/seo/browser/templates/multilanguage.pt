@@ -1,0 +1,3 @@
+<link tal:repeat="links view/links"
+      rel="alternate"
+      tal:attributes="hreflang python:links[0]; href python:links[1];" />

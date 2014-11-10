@@ -160,7 +160,7 @@ class RobotsViewlet(DublinCoreViewlet):
         self.content = ', '.join(values)
 
 
-class CanonicalViewlet(DublinCoreViewlet):
+class CanonicalViewlet(ViewletBase):
 
     @memoize
     def render(self):
@@ -173,6 +173,29 @@ class CanonicalViewlet(DublinCoreViewlet):
             canonical_url = seo_canonical.to_object.absolute_url()
 
         return u'    <link rel="canonical" href="%s" />' % canonical_url
+
+
+class MultiLanguageViewlet(ViewletBase):
+
+    _template = ViewPageTemplateFile('templates/multilanguage.pt')
+
+    def update(self):
+        super(MultiLanguageViewlet, self).update()
+
+        context_state = getMultiAdapter(
+            (self.context, self.request), name=u'plone_context_state')
+        canonical_url = context_state.canonical_object_url()
+        obj = aq_base(self.context)
+        language_links = getattr(obj, 'language_links', False)
+        self.links = []
+        if language_links:
+            for x in language_links:
+                self.links.append((x.to_object.language,
+                                   x.to_object.absolute_url()))
+
+    @memoize
+    def render(self):
+        return xhtml_compress(self._template())
 
 
 class SeoAuthorViewlet(AuthorViewlet):

@@ -39,4 +39,13 @@
       marker=".canonical.ICanonical"
       />
 
+  <plone:behavior
+      title="Multi Language"
+      description="Adds multi language links to the head tag."
+      provides=".multilanguage.IMultiLanguage"
+      factory=".multilanguage.MultiLanguage"
+      for="plone.dexterity.interfaces.IDexterityContent"
+      marker=".multilanguage.IMultiLanguage"
+      />
+
 </configure>
