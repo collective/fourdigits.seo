@@ -6,7 +6,7 @@
         tal:define="contettype python:request.RESPONSE.setHeader('Content-Type', 'text/xml');
                     charset python:request.RESPONSE.setHeader('charset', 'UTF-8');">
   <url>
-    <loc>https://www.fourdigits.nl</loc>
+    <loc tal:content="view/portal_url">http://example.com</loc>
     <tal:block  tal:repeat="result view/results">
     <image:image>
       <image:loc tal:content="result/url">http://www.yoursite.com/</image:loc>

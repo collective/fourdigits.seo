@@ -233,6 +233,9 @@ class SitemapImage(BrowserView):
     def render(self):
         return self.index()
 
+    def portal_url(self):
+        return self.context.absolute_url()
+
     def results(self):
         objects = []
         images = self.context.portal_catalog(portal_type = ['Image', ])
