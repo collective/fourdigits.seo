@@ -4,9 +4,12 @@ from fourdigits.seo.browser.settings import ISeoSettings
 from plone.registry.interfaces import IRegistry
 from zope.component import getMultiAdapter
 from zope.component import getUtility
+from DateTime import DateTime
+from Products.CMFCore.interfaces import IFolderish
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.Five import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.Expression import Expression
 from Products.CMFCore.Expression import getExprContext
 
@@ -180,3 +183,69 @@ class OpenGraphWebsite(OpenGraphBase):
         self.properties.append(('og:type', 'website'))
 
         return self.properties
+
+
+class Sitemap(BrowserView):
+    index = ViewPageTemplateFile("templates/sitemap.pt")
+
+    def render(self):
+        return self.index()
+
+    def results(self):
+        objects = []
+
+        def recurse(context):
+            lastmod = None
+            default_page = getattr(context.aq_base, 'default_page', False)
+            portal_type = getattr(context.aq_base, 'portal_type', False)
+            noindex = False
+
+            if default_page:
+                lastmod = context[default_page].modified()
+                noindex = getattr(context[default_page].aq_base,
+                                  'seo_noindex', False) or \
+                          getattr(context.aq_base, 'seo_noindex', False)
+            else:
+                lastmod = context.modified()
+                noindex = getattr(context.aq_base, 'seo_noindex', False)
+
+            if not noindex and portal_type != 'Image':
+                objects.append({
+                    'url': context.absolute_url(),
+                    'lastmod': DateTime(lastmod).HTML4()
+                })
+
+            if IFolderish.providedBy(context):
+                for id, item in context.contentItems():
+                    recurse(item)
+
+        recurse(self.context)
+
+        return objects
+
+    def __call__(self):
+        return self.render()
+
+
+class SitemapImage(BrowserView):
+    index = ViewPageTemplateFile("templates/sitemap-image.pt")
+
+    def render(self):
+        return self.index()
+
+    def results(self):
+        objects = []
+        images = self.context.portal_catalog(portal_type = ['Image', ])
+
+        for image in images:
+            obj = image.getObject()
+            if not getattr(obj, 'seo_noindex', False):
+                objects.append({
+                    'url': obj.absolute_url(),
+                    'title': obj.Title()
+                })
+
+        return objects
+
+    def __call__(self):
+        return self.render()

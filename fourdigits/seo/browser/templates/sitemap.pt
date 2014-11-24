@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:tal="http://xml.zope.org/namespaces/tal"
+        tal:define="contenttype python:request.RESPONSE.setHeader('Content-Type', 'text/xml');
+                    charset python:request.RESPONSE.setHeader('charset', 'UTF-8');">
+  <tal:block  tal:repeat="result view/results">
+  <url>
+    <loc tal:content="result/url">http://www.yoursite.com/</loc>
+    <lastmod tal:content="result/lastmod">2005-01-01</lastmod>       
+  </url>
+  </tal:block>
+</urlset>

@@ -129,4 +129,20 @@
       layer="..interfaces.IAddOnInstalled"
       />
 
+  <browser:page
+      name="sitemap.xml"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      permission="zope2.View"
+      class=".views.Sitemap"
+      layer="..interfaces.IAddOnInstalled"
+      />
+
+  <browser:page
+      name="sitemap-image.xml"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      permission="zope2.View"
+      class=".views.SitemapImage"
+      layer="..interfaces.IAddOnInstalled"
+      />
+
 </configure>
