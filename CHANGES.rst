@@ -4,7 +4,8 @@ Changelog
 0.18 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- First public release.
+  [jaroel]
 
 
 0.17 (2014-11-24)
