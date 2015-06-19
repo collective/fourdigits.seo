@@ -27,6 +27,8 @@ setup(name='fourdigits.seo',
           'plone.app.relationfield',
           'plone.namedfile [blobs]',
           'plone.behavior',
+          'plone.directives.form',
+          'plone.formwidget.contenttree',
       ],
       entry_points="""
       # -*- Entry points: -*-
