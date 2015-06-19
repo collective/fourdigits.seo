@@ -9,7 +9,7 @@ setup(name='fourdigits.seo',
       long_description=open("README.rst").read() + "\n" +
                        open("CHANGES.rst").read(),
       classifiers=[
-        "Framework :: Plone 4",
+        "Framework :: Plone",
         "Programming Language :: Python",
         ],
       keywords='',
