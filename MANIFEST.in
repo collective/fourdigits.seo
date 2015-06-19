@@ -1,3 +1,14 @@
+include *.GPL
+include *.in
+include *.py
+include *.rst
+include buildout.cfg
 recursive-include fourdigits *
-include *
-global-exclude *.pyc
+recursive-include fourdigits *.png
+recursive-include fourdigits *.po
+recursive-include fourdigits *.pot
+recursive-include fourdigits *.pt
+recursive-include fourdigits *.sh
+recursive-include fourdigits *.txt
+recursive-include fourdigits *.xml
+recursive-include fourdigits *.zcml
