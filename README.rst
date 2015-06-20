@@ -57,4 +57,7 @@ Installation
 - Add 'fourdigits.seo' to the eggs section of your buildout.cfg.
 - Install 'SEO' using the 'Add-ons' section in the Plone control panel.
 - Enable the 'SEO' behaviour in the 'Dexterity Contect Types' in the Plone Control Panel.
-Note: the 'Site wide settings' are available without enableing the behavior.
+Note: the 'Site wide settings' are available without enabling the behavior.
+
+
+Repo location: https://bitbucket.org/fourdigits/fourdigits.seo
