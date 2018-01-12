@@ -1,6 +1,6 @@
-from plone.app.users.browser.personalpreferences import UserDataPanelAdapter
-from plone.app.users.userdataschema import IUserDataSchema
-from plone.app.users.userdataschema import IUserDataSchemaProvider
+from plone.app.users.browser.userdatapanel import UserDataPanelAdapter
+from plone.app.users.schema import IUserDataSchema
+from plone.app.users.schema import IUserSchemaProvider
 from zope import schema
 from zope.interface import implements
 from fourdigits.seo import MessageFactory as _
@@ -8,7 +8,7 @@ from zope.schema.vocabulary import SimpleVocabulary
 
 
 class UserDataSchemaProvider(object):
-    implements(IUserDataSchemaProvider)
+    implements(IUserSchemaProvider)
 
     def getSchema(self):
         return IEnhancedUserDataSchema
