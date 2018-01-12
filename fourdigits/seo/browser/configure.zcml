@@ -55,6 +55,7 @@
       layer="..interfaces.IAddOnInstalled"
       />
 
+<!--
   <browser:viewlet
       name="plone.path_bar"
       manager="plone.app.layout.viewlets.interfaces.IAboveContent"
@@ -72,7 +73,7 @@
       template="templates/sections.pt"
       layer="..interfaces.IAddOnInstalled"
       />
-
+ -->
   <browser:viewlet
       name="plone.header"
       manager="plone.app.layout.viewlets.interfaces.IPortalTop"
